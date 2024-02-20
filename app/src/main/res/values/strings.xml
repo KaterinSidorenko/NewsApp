@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ChageColor</string>
+    <string name="app_continue">Continue</string>
+    <string name="app_registration">Registration</string>
+    <string name="app_password">Password</string>
+    <string name="app_login">Login</string>
+    <string name="app_email">Email</string>
+    <string name="app_enterPas">Enter your password</string>
+    <string name="app_enterLog">Enter your login</string>
+    <string name="app_back">Back</string>
+
+</resources>
