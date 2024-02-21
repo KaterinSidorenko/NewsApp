@@ -1,4 +1,4 @@
-package com.example.chagecolor
+package com.example.chagecolor.ui.features.news
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,20 +15,33 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
+import com.example.chagecolor.Deps
+import com.example.chagecolor.R
+import com.example.chagecolor.ui.features.auth.login.LoginPage
 
 
 class NewsPage : ComponentActivity() {
+
+    val viewModel = NewsViewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        viewModel.news.observe(this) { news ->
+
+        }
+
         setContent {
+
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth(1f),
@@ -37,7 +50,6 @@ class NewsPage : ComponentActivity() {
             ) {
                 Back()
                 Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-
                     ListItem(news = "Fire", prof = "Fire in the JK", imageId = R.drawable.news_fire)
                     ListItem(news = "Earthquake", prof = "Earthquake in Korea", imageId = R.drawable.earthquake)
                     ListItem(news = "Flood", prof = "Flood in Japan", imageId = R.drawable.flood)
@@ -81,7 +93,7 @@ class NewsPage : ComponentActivity() {
     private fun ListItem(news: String, prof: String, imageId: Int) {
 
         Card(
-            modifier = androidx.compose.ui.Modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(Deps.Paddings.paddingList),
             shape = RoundedCornerShape(15.dp),

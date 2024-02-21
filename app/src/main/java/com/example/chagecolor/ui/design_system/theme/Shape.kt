@@ -1,4 +1,4 @@
-package com.example.chagecolor.ui.theme
+package com.example.chagecolor.ui.design_system.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

@@ -20,13 +20,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginPage"
+            android:name=".ui.features.auth.login.LoginPage"
             android:label="@string/app_name"></activity>
         <activity
-            android:name=".RegistrationPage"
+            android:name=".ui.features.auth.signup.RegistrationPage"
             android:label="@string/app_name"></activity>
         <activity
-            android:name=".NewsPage"
+            android:name=".ui.features.news.NewsPage"
             android:label="@string/app_name"></activity>
 
 
