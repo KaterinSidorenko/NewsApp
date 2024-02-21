@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">ChageColor</string>
     <string name="app_continue">Continue</string>
     <string name="app_registration">Registration</string>
@@ -7,6 +7,10 @@
     <string name="app_email">Email</string>
     <string name="app_enterPas">Enter your password</string>
     <string name="app_enterLog">Enter your login</string>
+    <string name="app_annotated">Are you not registered yet?</string>
     <string name="app_back">Back</string>
-
+    <string name="app_annotatedErr">The mail must contain the "@" and ".com" </string>
+    <string name="news_item_title">%s</string>
+    <string name="news_item_description">%s</string>
+    <string name="app_annotatedPasErr">The password must not be shorter than 6 characters and contain at least one capital letter </string>
 </resources>

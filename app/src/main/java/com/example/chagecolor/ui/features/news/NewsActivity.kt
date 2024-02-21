@@ -21,65 +21,53 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
 import com.example.chagecolor.Deps
 import com.example.chagecolor.R
-import com.example.chagecolor.ui.features.auth.login.LoginPage
+import com.example.chagecolor.data.NewsDataSource.getNews
+import com.example.chagecolor.ui.features.auth.login.LoginActivity
 
 
-class NewsPage : ComponentActivity() {
+class NewsActivity : ComponentActivity() {
 
     val viewModel = NewsViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val viewModel = NewsViewModel()
 
         viewModel.news.observe(this) { news ->
-
-        }
-
-        setContent {
-
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth(1f),
-                verticalArrangement = Arrangement.SpaceAround,
-                horizontalAlignment = Alignment.Start
-            ) {
-                Back()
-                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                    ListItem(news = "Fire", prof = "Fire in the JK", imageId = R.drawable.news_fire)
-                    ListItem(news = "Earthquake", prof = "Earthquake in Korea", imageId = R.drawable.earthquake)
-                    ListItem(news = "Flood", prof = "Flood in Japan", imageId = R.drawable.flood)
-                    ListItem(news = "Fire", prof = "The hospital building is in fire", imageId = R.drawable.news_fire)
-                    ListItem(news = "Health", prof = "A flu vaccine vas been created", imageId = R.drawable.vaccine)
-                    ListItem(news = "Earthquake", prof = "Victims have been found", imageId = R.drawable.earthquake)
-                    ListItem(news = "Fire", prof = "Fire in the JK", imageId = R.drawable.news_fire)
-                    ListItem(news = "Earthquake", prof = "The number of vicims", imageId = R.drawable.earthquake)
-                    ListItem(news = "Fire", prof = "Fire in the JK Turkish", imageId = R.drawable.flood)
-                    ListItem(news = "Fire", prof = "Fire in the JK Moscow", imageId = R.drawable.flood)
-
+            setContent {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth(1f)
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.SpaceAround,
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Back()
+                    news.forEach { newsItem ->
+                        ListItem(newsItem)
+                    }
                 }
-
             }
-
-
         }
+        viewModel.getNews()
     }
+}
+
+
 
     @Composable
     fun Back() {
         val context = LocalContext.current
-        val intent = Intent(context, LoginPage::class.java)
+        val intent = Intent(context, LoginActivity::class.java)
         Button(
 
             onClick = {
                 context.startActivity(intent)
             },
             modifier = Modifier
-                .padding(Deps.Paddings.paddingMidl),
+                .padding(Deps.Paddings.Midl),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = colorResource(id = R.color.light_red),
                 contentColor = colorResource(id = R.color.white)
@@ -90,12 +78,14 @@ class NewsPage : ComponentActivity() {
     }
 
     @Composable
-    private fun ListItem(news: String, prof: String, imageId: Int) {
-
+    private fun ListItem(newsItem: NewsItem) {
+        val news = newsItem.news
+        val prof = newsItem.prof
+        val imageId = newsItem.imageId
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(Deps.Paddings.paddingList),
+                .padding(Deps.Paddings.List),
             shape = RoundedCornerShape(15.dp),
             elevation = 5.dp
         ) {
@@ -108,17 +98,16 @@ class NewsPage : ComponentActivity() {
                         contentDescription = "image",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .padding(5.dp)
-                            .size(64.dp)
+                            .padding(Deps.Paddings.Little)
+                            .size(Deps.Size.imageCald)
                             .clip(CircleShape)
                     )
-                    Column(modifier = Modifier.padding(Deps.Paddings.paddingMidl)) {
-                        Text(text = news)
-                        Text(text = prof)
+                    Column(modifier = Modifier.padding(Deps.Paddings.Midl)) {
+                        Text(text = stringResource(id = R.string.news_item_title, news))
+                        Text(text = stringResource(id = R.string.news_item_description, prof))
                     }
 
                 }
             }
         }
     }
-}

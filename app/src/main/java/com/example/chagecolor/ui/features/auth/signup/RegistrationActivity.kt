@@ -29,14 +29,15 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.chagecolor.Deps
-import com.example.chagecolor.ui.features.news.NewsPage
+import com.example.chagecolor.ui.features.news.NewsActivity
 import com.example.chagecolor.R
 import com.example.chagecolor.saveCredentials
 import com.example.chagecolor.ui.design_system.PasswordField
+import com.example.chagecolor.ui.design_system.theme.LoginField
+import com.example.chagecolor.ui.features.news.Back
 
-class RegistrationPage : ComponentActivity() {
+class RegistrationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -68,26 +69,20 @@ class RegistrationPage : ComponentActivity() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(Deps.Paddings.paddingMidl),
+                .padding(Deps.Paddings.Midl),
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center
         ) {
-            NewsPage().Back()
+            Back()
 
-            OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Email
-                ),
-                label = { Text("Email") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
+            LoginField(textlogin = email,
+                textloginChanged = { email = it },
+                clear = { email = "" }
             )
+
             if (!isEmailValid) {
                 Text(
-                    text = "Email должен содержать символ '@' и '.com'",
+                    text = stringResource(R.string.app_annotatedErr),
                     color = MaterialTheme.colors.error
                 )
             }
@@ -102,7 +97,7 @@ class RegistrationPage : ComponentActivity() {
 
             if (!isEmailValid) {
                 Text(
-                    text = "Пароль должен быть не короче 6 символов и содержать хотя бы одну заглавную букву",
+                    text = stringResource(id = R.string.app_annotatedPasErr),
                     color = MaterialTheme.colors.error
                 )
             }
@@ -113,8 +108,7 @@ class RegistrationPage : ComponentActivity() {
                     saveCredentials(context, email, textPassword)
                 },
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
+                    .fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = colorResource(id = R.color.light_green),
                     contentColor = Color.White
@@ -124,8 +118,8 @@ class RegistrationPage : ComponentActivity() {
             ) {
                 Text(
                     stringResource(R.string.app_registration),
-                    fontSize = Deps.TextSize.fontMidl,
-                    modifier = Modifier.padding(Deps.Paddings.paddingLittle)
+                    fontSize = Deps.TextSize.Midl,
+                    modifier = Modifier.padding(Deps.Paddings.Little)
                 )
 
             }

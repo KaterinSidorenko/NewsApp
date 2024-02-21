@@ -35,7 +35,7 @@ fun PasswordField(
         label = { Text(stringResource(id = R.string.app_password)) },
         modifier = modifier
             .fillMaxWidth()
-            .padding(bottom = Deps.Paddings.paddingMidl)
+            .padding(bottom = Deps.Paddings.Midl)
             .clickable { clear() },
         visualTransformation = if (showPassword) {
             VisualTransformation.None

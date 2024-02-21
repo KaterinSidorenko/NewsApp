@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -30,15 +29,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.chagecolor.Deps
-import com.example.chagecolor.ui.features.news.NewsPage
+import com.example.chagecolor.ui.features.news.NewsActivity
 import com.example.chagecolor.R
-import com.example.chagecolor.ui.features.auth.signup.RegistrationPage
+import com.example.chagecolor.ui.features.auth.signup.RegistrationActivity
 import com.example.chagecolor.getSavedCredentials
 import com.example.chagecolor.ui.design_system.PasswordField
+import com.example.chagecolor.ui.design_system.theme.LoginField
 
-class LoginPage : ComponentActivity() {
+class LoginActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,7 +56,7 @@ class LoginPage : ComponentActivity() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(Deps.Paddings.paddingMidl),
+                .padding(Deps.Paddings.Midl),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -84,25 +83,22 @@ class LoginPage : ComponentActivity() {
 
     @Composable
     fun LoginPassword() {
-        var textLogin by remember { mutableStateOf("") }
+        var email by remember { mutableStateOf("") }
         var textPassword by remember { mutableStateOf("") }
         val context = LocalContext.current
-        val intentNews = Intent(context, NewsPage::class.java)
+        val intentNews = Intent(context, NewsActivity::class.java)
         var showPassword by remember { mutableStateOf(value = false) }
         val savedCredentials = getSavedCredentials(context)
         if (savedCredentials != null) {
 
-            textLogin = savedCredentials.first
+            email = savedCredentials.first
             textPassword = savedCredentials.second
         }
 
-        OutlinedTextField(
-            value = textLogin,
-            onValueChange = { textLogin = it },
-            label = { Text("Email") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = Deps.Paddings.paddingMidl)
+
+        LoginField(textlogin = email,
+            textloginChanged = { email = it },
+            clear = { email = "" }
         )
 
         PasswordField(
@@ -118,33 +114,31 @@ class LoginPage : ComponentActivity() {
                 context.startActivity(intentNews)
             },
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
+                .fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = colorResource(id = R.color.light_green),
                 contentColor = Color.White
             ),
-            enabled = textLogin.isNotEmpty() && textPassword.isNotEmpty() && savedCredentials != null
+            enabled = email.isNotEmpty() && textPassword.isNotEmpty() && savedCredentials != null
 
         ) {
             Text(
                 text = stringResource(id = R.string.app_continue),
-                fontSize = Deps.TextSize.fontMidl,
-                modifier = Modifier.padding(Deps.Paddings.paddingLittle)
+                fontSize = Deps.TextSize.Midl,
+                modifier = Modifier.padding(Deps.Paddings.Little)
             )
         }
 
         ClickableText(
-            text = AnnotatedString("Вы ещё не зарегистрированы?"),
+            text = AnnotatedString( stringResource(id = R.string.app_annotated)),
             style = TextStyle(
                 colorResource(id = R.color.teal_700)
             ),
             onClick = {
-                context.startActivity(Intent(context, RegistrationPage::class.java))
+                context.startActivity(Intent(context, RegistrationActivity::class.java))
             },
             modifier = Modifier
-                .padding(top = 8.dp)
-                .clickable { /* no-op */ }
+                .padding(Deps.Paddings.topClickableText)
         )
     }
 
@@ -152,8 +146,8 @@ class LoginPage : ComponentActivity() {
     fun NewText() {
         Text(
             text = stringResource(id = R.string.app_login),
-            fontSize = Deps.TextSize.fontMidl,
-            modifier = Modifier.padding(Deps.Paddings.paddingLarge)
+            fontSize = Deps.TextSize.Midl,
+            modifier = Modifier.padding(Deps.Paddings.Large)
         )
     }
 
