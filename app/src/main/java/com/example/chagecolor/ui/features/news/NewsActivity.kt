@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.example.chagecolor.Deps
 import com.example.chagecolor.R
 import com.example.chagecolor.data.NewsDataSource.getNews
+import com.example.chagecolor.ui.design_system.Back
 import com.example.chagecolor.ui.features.auth.login.LoginActivity
 
 
@@ -56,58 +57,36 @@ class NewsActivity : ComponentActivity() {
 }
 
 
+@Composable
+private fun ListItem(newsItem: NewsItem) {
+    val news = newsItem.news
+    val prof = newsItem.prof
+    val imageId = newsItem.imageId
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(Deps.Paddings.List),
+        shape = RoundedCornerShape(15.dp),
+        elevation = 5.dp
+    ) {
 
-    @Composable
-    fun Back() {
-        val context = LocalContext.current
-        val intent = Intent(context, LoginActivity::class.java)
-        Button(
-
-            onClick = {
-                context.startActivity(intent)
-            },
-            modifier = Modifier
-                .padding(Deps.Paddings.Midl),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = colorResource(id = R.color.light_red),
-                contentColor = colorResource(id = R.color.white)
-            )
-        ) {
-            Text(stringResource(R.string.app_back))
-        }
-    }
-
-    @Composable
-    private fun ListItem(newsItem: NewsItem) {
-        val news = newsItem.news
-        val prof = newsItem.prof
-        val imageId = newsItem.imageId
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(Deps.Paddings.List),
-            shape = RoundedCornerShape(15.dp),
-            elevation = 5.dp
-        ) {
-
-
-            Box() {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Image(
-                        painter = painterResource(id = imageId),
-                        contentDescription = "image",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .padding(Deps.Paddings.Little)
-                            .size(Deps.Size.imageCald)
-                            .clip(CircleShape)
-                    )
-                    Column(modifier = Modifier.padding(Deps.Paddings.Midl)) {
-                        Text(text = stringResource(id = R.string.news_item_title, news))
-                        Text(text = stringResource(id = R.string.news_item_description, prof))
-                    }
-
+        Box() {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Image(
+                    painter = painterResource(id = imageId),
+                    contentDescription = "image",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .padding(Deps.Paddings.Little)
+                        .size(Deps.Size.imageCald)
+                        .clip(CircleShape)
+                )
+                Column(modifier = Modifier.padding(Deps.Paddings.Midl)) {
+                    Text(text = stringResource(id = R.string.news_item_title, news))
+                    Text(text = stringResource(id = R.string.news_item_description, prof))
                 }
+
             }
         }
     }
+}

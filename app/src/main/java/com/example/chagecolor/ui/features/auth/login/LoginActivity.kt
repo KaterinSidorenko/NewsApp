@@ -30,12 +30,12 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.chagecolor.Deps
-import com.example.chagecolor.ui.features.news.NewsActivity
 import com.example.chagecolor.R
 import com.example.chagecolor.ui.features.auth.signup.RegistrationActivity
 import com.example.chagecolor.getSavedCredentials
 import com.example.chagecolor.ui.design_system.PasswordField
 import com.example.chagecolor.ui.design_system.theme.LoginField
+import com.example.chagecolor.ui.features.news.NewsActivity
 
 class LoginActivity : ComponentActivity() {
 
