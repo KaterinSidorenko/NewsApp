@@ -30,7 +30,7 @@ import com.example.chagecolor.Deps
 import com.example.chagecolor.R
 import com.example.chagecolor.saveCredentials
 import com.example.chagecolor.ui.design_system.Back
-import com.example.chagecolor.ui.design_system.CustomButton
+import com.example.chagecolor.ui.design_system.LargeButton
 import com.example.chagecolor.ui.design_system.PasswordField
 import com.example.chagecolor.ui.design_system.theme.LoginField
 
@@ -99,30 +99,7 @@ class RegistrationActivity : ComponentActivity() {
                     color = MaterialTheme.colors.error
                 )
             }
-            Button(
-                onClick = {
-                    val message = "Email: $email\nPassword: $textPassword"
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                    saveCredentials(context, email, textPassword)
-                },
-                modifier = Modifier
-                    .fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(
-                    backgroundColor = colorResource(id = R.color.light_green),
-                    contentColor = Color.White
-                ),
-                enabled = email.isNotEmpty() && textPassword.isNotEmpty() && isEmailValid && isPasswordValid
-
-            ) {
-                Text(
-                    stringResource(R.string.app_registration),
-                    fontSize = Deps.TextSize.Midl,
-                    modifier = Modifier.padding(Deps.Paddings.Little)
-                )
-
-            }
-
-            CustomButton(
+            LargeButton(
                 buttonText = stringResource(R.string.app_registration),
                 onClick = {
                     val message = "Email: $email\nPassword: $textPassword"

@@ -39,7 +39,7 @@ import com.example.chagecolor.ui.features.auth.login.LoginActivity
         }
     }
 @Composable
-fun CustomButton(
+fun LargeButton(
     buttonText: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,

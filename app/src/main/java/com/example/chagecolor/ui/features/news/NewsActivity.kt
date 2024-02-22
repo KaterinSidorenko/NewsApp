@@ -34,8 +34,6 @@ class NewsActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val viewModel = NewsViewModel()
-
         viewModel.news.observe(this) { news ->
             setContent {
                 Column(

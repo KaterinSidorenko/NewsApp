@@ -10,11 +10,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,17 +17,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.chagecolor.Deps
 import com.example.chagecolor.R
 import com.example.chagecolor.ui.features.auth.signup.RegistrationActivity
 import com.example.chagecolor.getSavedCredentials
+import com.example.chagecolor.ui.design_system.ClickText
+import com.example.chagecolor.ui.design_system.LargeButton
+import com.example.chagecolor.ui.design_system.LargeLable
 import com.example.chagecolor.ui.design_system.PasswordField
 import com.example.chagecolor.ui.design_system.theme.LoginField
 import com.example.chagecolor.ui.features.news.NewsActivity
@@ -67,7 +61,7 @@ class LoginActivity : ComponentActivity() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                NewText()
+                LargeLable(stringResource(id = R.string.app_login))
             }
             Column(
                 modifier = Modifier
@@ -76,13 +70,13 @@ class LoginActivity : ComponentActivity() {
                 verticalArrangement = Arrangement.SpaceAround,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                LoginPassword()
+                LoginScreen()
             }
         }
     }
 
     @Composable
-    fun LoginPassword() {
+    fun LoginScreen() {
         var email by remember { mutableStateOf("") }
         var textPassword by remember { mutableStateOf("") }
         val context = LocalContext.current
@@ -109,46 +103,19 @@ class LoginActivity : ComponentActivity() {
             clear = { textPassword = String() }
         )
 
-        Button(
+
+        LargeButton(
+            buttonText = stringResource(id = R.string.app_continue),
             onClick = {
                 context.startActivity(intentNews)
             },
-            modifier = Modifier
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = colorResource(id = R.color.light_green),
-                contentColor = Color.White
-            ),
             enabled = email.isNotEmpty() && textPassword.isNotEmpty() && savedCredentials != null
-
-        ) {
-            Text(
-                text = stringResource(id = R.string.app_continue),
-                fontSize = Deps.TextSize.Midl,
-                modifier = Modifier.padding(Deps.Paddings.Little)
-            )
-        }
-
-        ClickableText(
-            text = AnnotatedString( stringResource(id = R.string.app_annotated)),
-            style = TextStyle(
-                colorResource(id = R.color.teal_700)
-            ),
-            onClick = {
-                context.startActivity(Intent(context, RegistrationActivity::class.java))
-            },
-            modifier = Modifier
-                .padding(Deps.Paddings.topClickableText)
         )
-    }
 
-    @Composable
-    fun NewText() {
-        Text(
-            text = stringResource(id = R.string.app_login),
-            fontSize = Deps.TextSize.Midl,
-            modifier = Modifier.padding(Deps.Paddings.Large)
-        )
+        ClickText(annotatedText = stringResource(id = R.string.app_annotated), onClick = {
+            context.startActivity(Intent(context, RegistrationActivity::class.java))
+        })
+
     }
 
     @Preview(showBackground = true)
